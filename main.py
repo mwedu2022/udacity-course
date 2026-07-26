@@ -8,7 +8,7 @@ plt.show()
 
 import numpy as np
 
-print(image.dtype, image.shape, np.min(image), np.max(image))
+# print(image.dtype, image.shape, np.min(image), np.max(image))
 
 red_channel = np.copy(image)
 red_channel[:, :, [1, 2]] = 0
