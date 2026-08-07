@@ -1,32 +1,58 @@
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-image = mpimg.imread('example_grid1.jpg')
+filename = 'sample.jpg'
+image = mpimg.imread(filename)
 plt.imshow(image)
 plt.show()
 
-import cv2
 import numpy as np
 
-def perspect_transform(img, src, dst):
+# print(image.dtype, image.shape, np.min(image), np.max(image))
 
-    M = cv2.getPerspectiveTransform(src, dst)
-    warped = cv2.warpPerspective(img, M, (img.shape[1], img.shape[0]))
-    return warped
-
-source = np.float32([
-    [14, 140],   # A
-    [301, 140],  # B
-    [200, 96],   # C
-    [118, 96]    # D
-])
-destination = np.float32([
-    [50, 200],
-    [250, 200],
-    [250, 0],
-    [50, 0]
-])
-
-warped = perspect_transform(image, source, destination)
-plt.imshow(warped)
+red_channel = np.copy(image)
+red_channel[:, :, [1, 2]] = 0
+green_channel = np.copy(image)
+green_channel[:, :, [0, 2]] = 0
+blue_channel = np.copy(image)
+blue_channel[:, :, [0, 1]] = 0
+fig = plt.figure(figsize=(12, 3))
+plt.subplot(131)
+plt.imshow(red_channel)
+plt.subplot(132)
+plt.imshow(green_channel)
+plt.subplot(133)
+plt.imshow(blue_channel)
 plt.show()
+
+def color_thresh(img, rgb_thresh=(0, 0, 0)):
+
+    color_select = np.zeros_like(img[:, :, 0])
+
+    above_thresh = (img[:, :, 0] > rgb_thresh[0]) \
+                   & (img[:, :, 1] > rgb_thresh[1]) \
+                   & (img[:, :, 2] > rgb_thresh[2])
+
+    color_select[above_thresh] = 1
+
+    return color_select
+
+red_threshold = 160
+green_threshold = 160
+blue_threshold = 160
+
+rgb_threshold = (red_threshold, green_threshold, blue_threshold)
+
+color_select = color_thresh(image, rgb_thresh=rgb_threshold)
+
+# Відображаємо оригінал та результат
+f, (ax1, ax2) = plt.subplots(1, 2, figsize=(21, 7), sharey=True)
+f.tight_layout()
+ax1.imshow(image)
+ax1.set_title('Original Image', fontsize=40)
+
+ax2.imshow(color_select, cmap='gray')
+ax2.set_title('Your Result', fontsize=40)
+plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
+plt.show()
+
