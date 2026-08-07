@@ -8,7 +8,7 @@ plt.show()
 
 import numpy as np
 
-print(image.dtype, image.shape, np.min(image), np.max(image))
+# print(image.dtype, image.shape, np.min(image), np.max(image))
 
 red_channel = np.copy(image)
 red_channel[:, :, [1, 2]] = 0
@@ -55,3 +55,4 @@ ax2.imshow(color_select, cmap='gray')
 ax2.set_title('Your Result', fontsize=40)
 plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
 plt.show()
+
