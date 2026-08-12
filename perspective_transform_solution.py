@@ -57,17 +57,17 @@ warped_marked = warped.copy()
 
 # Draw Source and destination points on images (in blue) before plotting
 # OpenCV uses BGR format, so blue is (255, 0, 0)
-cv2.polylines(image_marked, np.int32([source]), True, (0, 0, 255), 3)
-cv2.polylines(warped_marked, np.int32([destination]), True, (0, 0, 255), 3)
+# cv2.polylines(image_marked, np.int32([source]), True, (0, 0, 255), 3)
+# cv2.polylines(warped_marked, np.int32([destination]), True, (0, 0, 255), 3)
 
 # Display the original image and the transformed result
-f, (ax1, ax2) = plt.subplots(1, 2, figsize=(24, 6), sharey=True)
-f.tight_layout()
-ax1.imshow(image_marked)
-ax1.set_title('Original Image with Source Points', fontsize=40)
+# f, (ax1, ax2) = plt.subplots(1, 2, figsize=(24, 6), sharey=True)
+# f.tight_layout()
+# ax1.imshow(image_marked)
+# ax1.set_title('Original Image with Source Points', fontsize=40)
 
-ax2.imshow(warped_marked, cmap='gray')
-ax2.set_title('Perspective Transform Result (Top-Down View)', fontsize=40)
-plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
-plt.show()
+# ax2.imshow(warped_marked, cmap='gray')
+# ax2.set_title('Perspective Transform Result (Top-Down View)', fontsize=40)
+# plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
+# plt.show()
 
